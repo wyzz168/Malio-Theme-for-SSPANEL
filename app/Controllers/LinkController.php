@@ -320,7 +320,7 @@ class LinkController extends BaseController
                 break;
             case 'clashr':
                 $return = [
-                    'filename' => 'Clash',
+                    'filename' => 'ClashR',
                     'suffix'   => 'yaml',
                     'class'    => 'Lists'
                 ];
@@ -548,7 +548,7 @@ class LinkController extends BaseController
         'surge3'          => '?surge=3',
         'surge4'          => '?surge=4',
         'surfboard'       => '?surfboard=1',
-        'quantumult'      => '?quanquan=1', // ?quanquan=1改为 ?quanquan=1
+        'quantumult'      => '?quanquan==1' . $int, // ?quanquan=1改为 ?quanquan=1
         'quantumult_v2'   => '?list=quantumult',
         'quantumult_sub'  => '?quantumult=2',
         'quantumult_conf' => '?quantumult=3',
