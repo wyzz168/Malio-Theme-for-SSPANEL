@@ -64,6 +64,29 @@ class LinkController extends BaseController
         }
 
         $opts = $request->getQueryParams();
+        // 映射已有参数
+    if (isset($opts['ddlash'])) {
+        $opts['clash'] = $opts['ddlash'];
+        unset($opts['ddlash']);
+    }
+    // 新增映射：将 sha2025ket 映射为 shadowrocket
+    if (isset($opts['list']) && $opts['list'] === 'sha2025ket') {
+    $opts['list'] = 'shadowrocket';
+    }
+    // 新增映射：将 suu 映射为 sub
+    if (isset($opts['suu'])) {
+        $opts['sub'] = $opts['suu'];
+        unset($opts['suu']);
+    }
+    // 新增映射：将 quanquanx 映射为 quantumultx
+    if (isset($opts['list']) && $opts['list'] === 'quanquanx') {
+        $opts['list'] = 'quantumultx';
+    }
+    // 新增映射：将 quanquan 映射为 quantumult
+    if (isset($opts['quanquan'])) {
+        $opts['quantumult'] = $opts['quanquan'];
+        unset($opts['quanquan']);
+    }
 
         // 筛选节点部分
         $Rule['type'] = (isset($opts['type']) ? trim($opts['type']) : 'all');
@@ -297,7 +320,7 @@ class LinkController extends BaseController
                 break;
             case 'clashr':
                 $return = [
-                    'filename' => 'ClashR',
+                    'filename' => 'Clash',
                     'suffix'   => 'yaml',
                     'class'    => 'Lists'
                 ];
@@ -508,30 +531,30 @@ class LinkController extends BaseController
         $userapiUrl = Config::get('subUrl') . self::GenerateSSRSubCode($user->id, 0);
         $return_info = [
             'link'            => '',
-            // sub
-            'ss'              => '?sub=2',
-            'ssr'             => '?sub=1',
-            'v2ray'           => '?sub=3',
-            // apps
-            'ssa'             => '?list=ssa',
-            'ssd'             => '?ssd=1',
-            'clash'           => '?clash=1',
-            'clash_provider'  => '?list=clash',
-            'clashr'          => '?clash=2',
-            'clashr_provider' => '?list=clashr',
-            'surge'           => '?surge=' . $int,
-            'surge_node'      => '?list=surge',
-            'surge2'          => '?surge=2',
-            'surge3'          => '?surge=3',
-            'surge4'          => '?surge=4',
-            'surfboard'       => '?surfboard=1',
-            'quantumult'      => '?quantumult=1' . $int,
-            'quantumult_v2'   => '?list=quantumult',
-            'quantumult_sub'  => '?quantumult=2',
-            'quantumult_conf' => '?quantumult=3',
-            'quantumultx'     => '?list=quantumultx',
-            'shadowrocket'    => '?list=shadowrocket',
-            'kitsunebi'       => '?list=kitsunebi'
+        // sub
+        'ss'              => '?sub=2',
+        'ssr'             => '?sub=1',
+        'v2ray'           => '?suu=3', // ?sub=3改为 ?suu=3
+        // apps
+        'ssa'             => '?list=ssa',
+        'ssd'             => '?ssd=1',
+        'clash'           => '?ddlash=1', // ?clash=1改为 ?ddlash=1
+        'clash_provider'  => '?list=clash',
+        'clashr'          => '?clash=2',
+        'clashr_provider' => '?list=clashr',
+        'surge'           => '?surge=' . $int,
+        'surge_node'      => '?list=surge',
+        'surge2'          => '?surge=2',
+        'surge3'          => '?surge=3',
+        'surge4'          => '?surge=4',
+        'surfboard'       => '?surfboard=1',
+        'quantumult'      => '?quanquan=1', // ?quanquan=1改为 ?quanquan=1
+        'quantumult_v2'   => '?list=quantumult',
+        'quantumult_sub'  => '?quantumult=2',
+        'quantumult_conf' => '?quantumult=3',
+        'quantumultx'     => '?list=quanquanx', // ?list=quanquanx改为 ?list=quanquanx
+        'shadowrocket'    => '?list=sha2025ket', // ?list=shadowrocket已改为 ?list=sha2025ket
+        'kitsunebi'       => '?list=kitsunebi'
         ];
 
         return array_map(
@@ -1061,6 +1084,7 @@ class LinkController extends BaseController
         $Rule['emoji'] = false; // Shadowrocket 自带 emoji
         return self::getLists($user, 'shadowrocket', $opts, $Rule);
     }
+    
 
     /**
      * Kitsunebi 订阅
